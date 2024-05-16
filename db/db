@@ -1,1 +1,61 @@
+﻿-- Database: "input of data"
 
+-- DROP DATABASE "input of data";
+
+CREATE DATABASE "input of data"
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'ru_RU.UTF-8'
+       LC_CTYPE = 'ru_RU.UTF-8'
+       CONNECTION LIMIT = -1;
+
+-- Table: public.passwords
+
+-- DROP TABLE public.passwords;
+
+CREATE TABLE public.passwords
+(
+  password_id integer NOT NULL,
+  password character varying(10) NOT NULL,
+  CONSTRAINT pk_password_id PRIMARY KEY (password_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.passwords
+  OWNER TO postgres;
+
+-- Table: public.users
+
+-- DROP TABLE public.users;
+
+CREATE TABLE public.users
+(
+  login character varying(20) NOT NULL,
+  name text NOT NULL,
+  surname text NOT NULL,
+  patronymic text,
+  password_id bigint NOT NULL,
+  birthday integer,
+  CONSTRAINT pk_login PRIMARY KEY (login),
+  CONSTRAINT fk_password_id FOREIGN KEY (password_id)
+      REFERENCES public.passwords (password_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.users
+  OWNER TO postgres;
+
+--select * from public.passwords;
+INSERT INTO public.passwords (password_id, password) VALUES (122, 'AU2JSKX');
+INSERT INTO public.passwords (password_id, password) VALUES (1223, 'bu2JSKX');
+INSERT INTO public.passwords (password_id, password) VALUES (19999, 'cU2JSKX');
+
+--select * from public.users;
+INSERT INTO public.users (login, name, surname, patronymic, birthday, password_id)
+VALUES ('sergachevfj', 'vika', 'Sergacheva', NULL, 2021, 122),
+('ergAAcansk', 'vm', 'cGjdka', 'Olegovna', 2011, 1223),
+('G', 'Fodnek', 'JLFNeva', NULL, 2001, 19999);
