@@ -10,8 +10,8 @@ QDialog(parent),
   ui(new Ui::Authorization)
 {
     ui->setupUi(this);
+    password_id = password_id; 
 }
-
 Authorization::~Authorization()
 {
     delete ui;
@@ -20,7 +20,7 @@ Authorization::~Authorization()
 void Authorization::on_pushButton_clicked()
 {
     QString users = ui->login->text();
-    QString passwords = ui->password_id->text();
+    QString passwords = password_id->text();
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
     db.setHostName("astra");
     db.setDatabaseName("input of data");
@@ -47,3 +47,4 @@ void Authorization::on_pushButton_clicked()
     }
     db.close();
 }
+
