@@ -23,6 +23,6 @@ private slots:
 
 private:
     Ui::Authorization *ui;
+    QLineEdit *password_id;
 };
-
 #endif
